@@ -10,6 +10,7 @@
 
     import UIKit
     import RxSwift
+    import RxCocoa
 
     extension Reactive where Base: UIApplication {
         
