@@ -10,7 +10,6 @@
 
     import UIKit
     import RxSwift
-    import RxCocoa
 
     extension Reactive where Base: UIApplication {
         
@@ -75,10 +74,14 @@
             return RxUIApplicationDelegateProxy.proxy(for: base)
         }
         
-        public var didRegisterNotificationSettings: Observable<UIUserNotificationSettings> {
+        public var notificationSettings: Observable<UIUserNotificationSettings> {
             return delegate.methodInvoked(#selector(UIApplicationDelegate.application(_:didRegister:))).map { a in
                 return try castOrThrow(UIUserNotificationSettings.self, a[1])
             }
+        }
+    
+        public static var didRegisterNotificationSettings: Observable<UIUserNotificationSettings> { 
+            return UIApplication.shared.rx.notificationSettings
         }
     }
 
